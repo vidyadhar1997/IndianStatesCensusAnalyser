@@ -17,6 +17,9 @@ namespace IndianStateCensusAnalyserTest
 
         static string indianStateCodeHeaders = "SrNo,State Name,TIN,StateCode";
         static string indianStateCodeFilePath = @"C:\Users\hp\source\repos\Indian StatesCensusAnalyser\IndianStateCensusAnalyserTest\CSVFiles\IndianStateCode.csv";
+        static string wrongIndianStateCodeFilePath = @"\Users\hp\source\repos\IndianStateDemo\CensusAnalyserTests\CSVFile\WrongIndianStateCodeData.csv";
+
+
 
         CensusAnalyser censusAnalyser;
         Dictionary<string, CensusDTO> totalRecord;
@@ -91,6 +94,15 @@ namespace IndianStateCensusAnalyserTest
         {
             stateRecord = censusAnalyser.LoadCensusData(Country.INDIA, indianStateCodeFilePath, indianStateCodeHeaders);
             Assert.AreEqual(37, stateRecord.Count);
+        }
+        /// <summary>
+        /// Test Case 2.2 Given the indian state code file when incorrect then return File not found exception.
+        /// </summary>
+        [Test]
+        public void GivenIndianStateCodeCsvFile_WhenIncorrect_ThenShouldReturnFileNotFoundException()
+        {
+            var censusException = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(Country.INDIA, wrongIndianStateCodeFilePath, indianStateCodeHeaders));
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, censusException.exceptionType);
         }
     }
 }
