@@ -12,7 +12,7 @@ namespace Indian_StatesCensusAnalyser
         /// </summary>
         public enum Country
         {
-            INDIA, USA, BRAZIL
+            INDIA
         }
 
         Dictionary<string, CensusDTO> dataMap;
